@@ -13,6 +13,9 @@ class TestPortalBrowser(unittest.TestCase):
         eq_(instance_a, instance_b)
         instance_c = PortalBrowser("diff_user", "diff_pass")
         ok_(instance_a != instance_c)
+        instance_a.close()
+        instance_b.close()
+        instance_c.close()
 
     def test_calc_hash(self):
         hash_a = PortalBrowser._calculate_hash("user", "pass")
