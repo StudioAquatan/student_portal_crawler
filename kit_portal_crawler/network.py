@@ -3,7 +3,7 @@ import hashlib
 from .shibboleth_login import ShibbolethClient
 
 
-class PortalBrowser(object):
+class PortalBrowser(ShibbolethClient):
     """
     Singleton object to access KIT portal.
     """
@@ -15,11 +15,11 @@ class PortalBrowser(object):
         obj_hash = cls._calculate_hash(username, password)
         if obj_hash in cls._instances.keys():
             return cls._instances[obj_hash]
-        cls._instances[obj_hash] = ShibbolethClient(username, password)
+        cls._instances[obj_hash] = super().__new__(cls)
         return cls._instances[obj_hash]
 
     @staticmethod
-    def _calculate_hash(username: str, password: str):
+    def _calculate_hash(username: str, password: str) -> str:
         """Calculate hash based on given username and password"""
         chars = (username + password).encode("utf-8")
         return hashlib.sha1(chars).hexdigest()
