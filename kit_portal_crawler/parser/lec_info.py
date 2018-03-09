@@ -50,7 +50,7 @@ class LectureInformationParser(BaseParser):
                 'week': norm_td_list[5],
                 'period': norm_td_list[6],
                 'category': norm_td_list[7],
-                'detail': norm_td_list[8],
+                'detail': norm_td_list[8].strip().replace('\t', ''),
                 'created_at': datetime.strptime(norm_td_list[9], '%Y/%m/%d'),
                 'updated_at': datetime.strptime(norm_td_list[10], '%Y/%m/%d'),
                 'links': [link.get('href') for link in td_list[8].findAll('a')]
