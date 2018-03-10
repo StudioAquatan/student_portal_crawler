@@ -3,8 +3,8 @@ from unittest import TestCase
 from unittest.mock import MagicMock, patch
 from nose.tools import ok_, eq_
 
-from kit_portal_crawler.browser import PortalBrowser
-from kit_portal_crawler.page import Page
+from student_portal_crawler.browser import PortalBrowser
+from student_portal_crawler.page import Page
 
 
 class TestPortalBrowser(TestCase):
@@ -34,10 +34,10 @@ class TestPortalBrowser(TestCase):
         """Get registered page test for `browser.PortalBrowser`"""
         with contextlib.ExitStack() as stack:
             stack.enter_context(
-                patch.dict('kit_portal_crawler.parser.REGISTERED_PARSERS', self.patched_registered_dict)
+                patch.dict('student_portal_crawler.parser.REGISTERED_PARSERS', self.patched_registered_dict)
             )
             patched_get = stack.enter_context(
-                patch('kit_portal_crawler.shibboleth_login.ShibbolethClient.get', return_value=self.sample_response)
+                patch('student_portal_crawler.shibboleth_login.ShibbolethClient.get', return_value=self.sample_response)
             )
             with PortalBrowser(self.test_user, self.test_password) as b:
                 page = b.get_page(self.sample_url)
@@ -56,10 +56,10 @@ class TestPortalBrowser(TestCase):
         """Get unregistered page test for `browser.PortalBrowser`"""
         with contextlib.ExitStack() as stack:
             patched_get = stack.enter_context(
-                patch('kit_portal_crawler.shibboleth_login.ShibbolethClient.get', return_value=self.sample_response)
+                patch('student_portal_crawler.shibboleth_login.ShibbolethClient.get', return_value=self.sample_response)
             )
             patched_parser = stack.enter_context(
-                patch('kit_portal_crawler.parser.GeneralParser', self.sample_parser)
+                patch('student_portal_crawler.parser.GeneralParser', self.sample_parser)
             )
             with PortalBrowser(self.test_user, self.test_password) as b:
                 page = b.get_page(self.sample_url)

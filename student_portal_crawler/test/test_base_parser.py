@@ -1,7 +1,7 @@
 from unittest import TestCase
 from nose.tools import ok_, eq_, raises
 
-from kit_portal_crawler.parser import GeneralParser, BaseParser, REGISTERED_PARSERS
+from student_portal_crawler.parser import GeneralParser, BaseParser, REGISTERED_PARSERS
 
 
 class TestBaseParser(TestCase):

@@ -5,7 +5,7 @@ import codecs
 from datetime import datetime
 from nose.tools import ok_, eq_
 from bs4 import BeautifulSoup
-from kit_portal_crawler.parser import LectureInformationParser
+from student_portal_crawler.parser import LectureInformationParser
 
 
 class LectureInformationParserTest(unittest.TestCase):
