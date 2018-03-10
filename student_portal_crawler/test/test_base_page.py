@@ -3,7 +3,7 @@ from unittest import TestCase
 from unittest.mock import MagicMock
 from nose.tools import eq_
 
-from kit_portal_crawler.page import Page
+from student_portal_crawler.page import Page
 
 
 class TestPage(TestCase):

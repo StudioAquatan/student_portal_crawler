@@ -4,7 +4,7 @@ if TYPE_CHECKING:
     from datetime import datetime
     from bs4 import BeautifulSoup
     from requests import Response
-    from kit_portal_crawler.parser import BaseParser
+    from student_portal_crawler.parser import BaseParser
 
 
 class AbstractPage(type):

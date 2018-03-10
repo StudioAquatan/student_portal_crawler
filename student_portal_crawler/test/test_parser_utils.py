@@ -1,6 +1,6 @@
 from unittest import TestCase
 from nose.tools import eq_, raises
-from kit_portal_crawler.parser import norm, get_key_from_url
+from student_portal_crawler.parser import norm, get_key_from_url
 
 
 class TestNormalize(TestCase):
