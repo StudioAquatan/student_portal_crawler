@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from .base import BaseParser
 from .utils import norm
+from .static import SupportedPages
 
 if TYPE_CHECKING:
     from bs4 import BeautifulSoup
@@ -11,7 +12,7 @@ if TYPE_CHECKING:
 
 class LectureInformationParser(BaseParser):
     """Parser for lecture information page"""
-    URL = 'https://portal.student.kit.ac.jp/ead/?c=lecture_information'
+    URL = SupportedPages.LECTURE_INFORMATION.value
 
     def parse(self, soup: 'BeautifulSoup') -> dict:
         """
