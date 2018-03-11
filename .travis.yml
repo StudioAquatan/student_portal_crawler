@@ -1,6 +1,4 @@
 language: python
-git:
-  submodule: true
 
 python:
   - "3.5"
