@@ -58,6 +58,16 @@ class TestPortalBrowser(TestCase):
             self._assert_page_call('get_lecture_information', None, stack, url)
             self.sample_parser.assert_called_once_with(self.sample_response.text)
 
+    def test_get_lec_cancel(self):
+        """Get lecture cancellation test for `browser.PortalBrowser`"""
+        url = SupportedPages.LECTURE_CANCELLATION.value
+        with contextlib.ExitStack() as stack:
+            stack.enter_context(
+                patch.dict('student_portal_crawler.parser.REGISTERED_PARSERS', {url: self.sample_parser})
+            )
+            self._assert_page_call('get_lecture_cancellation', None, stack, url)
+            self.sample_parser.assert_called_once_with(self.sample_response.text)
+
     def _assert_page_call(self, method: str, method_args: Optional[tuple], stack, *args, **kwards):
             patched_get = stack.enter_context(
                 patch('student_portal_crawler.shibboleth_login.ShibbolethClient.get', return_value=self.sample_response)

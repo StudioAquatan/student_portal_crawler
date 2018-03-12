@@ -46,3 +46,12 @@ class PortalBrowser(object):
         """
         url = SupportedPages.LECTURE_INFORMATION.value
         return Page(response=self._client.get(url, **kwards), parser=REGISTERED_PARSERS[url], access_at=datetime.now())
+
+    def get_lecture_cancellation(self, **kwards):
+        """
+        Get lecture information from 'https://portal.student.kit.ac.jp/ead/?c=lecture_cancellation'
+        :param kwards: option for `requests.Session.get`
+        :return: `Page` object
+        """
+        url = SupportedPages.LECTURE_CANCELLATION.value
+        return Page(response=self._client.get(url, **kwards), parser=REGISTERED_PARSERS[url], access_at=datetime.now())
