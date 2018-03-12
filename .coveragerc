@@ -9,3 +9,4 @@ exclude_lines =
 ignore_errors = True
 omit =
     student_portal_crawler/test/*
+    student_portal_crawler/__version__.py
