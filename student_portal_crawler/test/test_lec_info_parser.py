@@ -67,7 +67,7 @@ class LectureInformationParserTest(unittest.TestCase):
     def test_normal_response(self):
         """Normal response test for LectureInformationParser"""
         parser = LectureInformationParser(self.HTML)
-        data = parser.parse(BeautifulSoup(self.HTML, parser.PARSER_LIB))
+        data = parser.parse()
         ok_(type(data), dict)
         ok_('data' in data.keys())
         eq_(len(data['data']), 3)
@@ -77,7 +77,7 @@ class LectureInformationParserTest(unittest.TestCase):
     def test_empty_response(self):
         """Empty response test for LectureInformationParser"""
         parser = LectureInformationParser('')
-        data = parser.parse(BeautifulSoup('', parser.PARSER_LIB))
+        data = parser.parse()
         ok_(type(data), dict)
         ok_('data' in data.keys())
         eq_(len(data['data']), 0)

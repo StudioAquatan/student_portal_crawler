@@ -1,23 +1,18 @@
 import re
 from datetime import datetime
-from typing import TYPE_CHECKING
 
 from .base import BaseParser
 from .utils import norm
 from .static import SupportedPages
-
-if TYPE_CHECKING:
-    from bs4 import BeautifulSoup
 
 
 class LectureCancellationParser(BaseParser):
     """Parser for lecture cancellation page"""
     URL = SupportedPages.LECTURE_CANCELLATION.value
 
-    def parse(self, soup: 'BeautifulSoup'):
+    def parse(self):
         """
         Parse lecture cancellation and convert it to dict
-        :param soup: html loaded by BeautifulSoup4
         :return: { 'data': [
                 {
                     'grade': 学年,
@@ -37,7 +32,7 @@ class LectureCancellationParser(BaseParser):
         """
         results = dict()
         results['data'] = list()
-        all_tr = soup.findAll('tr', attrs={'class': re.compile('^gen_tbl1_(even|odd)$')})
+        all_tr = self.soup.findAll('tr', attrs={'class': re.compile('^gen_tbl1_(even|odd)$')})
         for tr in all_tr:
             td_list = tr.findAll('td')
             norm_td_list = [norm(td.get_text()) for td in td_list]

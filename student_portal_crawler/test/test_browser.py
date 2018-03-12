@@ -69,19 +69,19 @@ class TestPortalBrowser(TestCase):
             self.sample_parser.assert_called_once_with(self.sample_response.text)
 
     def _assert_page_call(self, method: str, method_args: Optional[tuple], stack, *args, **kwards):
-            patched_get = stack.enter_context(
-                patch('student_portal_crawler.shibboleth_login.ShibbolethClient.get', return_value=self.sample_response)
-            )
-            with PortalBrowser(self.test_user, self.test_password) as b:
-                page = getattr(b, method)(*method_args) if method_args else getattr(b, method)()
-                ok_(patched_get.called)
-                ok_(patched_get.call_count, 1)
-                positional_args = patched_get.call_args[0]
-                optional_args = patched_get.call_args[1]
-                eq_(positional_args, args)
-                eq_(optional_args, kwards)
-                eq_(type(page), Page)
-                eq_(page.status_code, self.sample_response.status_code)
-                eq_(page.url, self.sample_url)
-                eq_(page.html, self.sample_response.text)
-                eq_(page.as_dict, self.sample_parse_result.data)
+        patched_get = stack.enter_context(
+            patch('student_portal_crawler.shibboleth_login.ShibbolethClient.get', return_value=self.sample_response)
+        )
+        with PortalBrowser(self.test_user, self.test_password) as b:
+            page = getattr(b, method)(*method_args) if method_args else getattr(b, method)()
+            ok_(patched_get.called)
+            ok_(patched_get.call_count, 1)
+            positional_args = patched_get.call_args[0]
+            optional_args = patched_get.call_args[1]
+            eq_(positional_args, args)
+            eq_(optional_args, kwards)
+            eq_(type(page), Page)
+            eq_(page.status_code, self.sample_response.status_code)
+            eq_(page.url, self.sample_url)
+            eq_(page.html, self.sample_response.text)
+            eq_(page.as_dict, self.sample_parse_result.data)
