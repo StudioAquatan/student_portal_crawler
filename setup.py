@@ -8,9 +8,9 @@ HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'student_portal_crawler'
 
 install_requires = [
-    'beautifulsoup4>=4.6.0',
-    'lxml>=4.1.0',
-    'requests>=2.18.0'
+    'beautifulsoup4>=4.5.0',
+    'lxml>=4.0.0',
+    'requests>=2.15.0'
 ]
 
 tests_require = [
