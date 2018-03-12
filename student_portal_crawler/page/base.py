@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING, Type
+from student_portal_crawler.error import ParseError
 
 if TYPE_CHECKING:
     from datetime import datetime
@@ -61,6 +62,8 @@ class Page(object):
         page data which is converted into dictionary by parser
         :return: dict
         """
+        if self.status_code > 400:
+            raise ParseError('status_code is {}'.format(self.status_code))
         return self._parser.data
 
     def __repr__(self):
