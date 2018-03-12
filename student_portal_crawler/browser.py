@@ -1,6 +1,6 @@
 from datetime import datetime
 from .shibboleth_login import ShibbolethClient
-from .parser import REGISTERED_PARSERS, get_key_from_url, GeneralParser
+from .parser import REGISTERED_PARSERS, get_key_from_url, GeneralParser, SupportedPages
 from .page import Page
 
 
@@ -37,3 +37,12 @@ class PortalBrowser(object):
             parser = REGISTERED_PARSERS[key]
         resp = self._client.get(url, **kwards)
         return Page(response=resp, parser=parser, access_at=datetime.now())
+
+    def get_lecture_information(self, **kwards):
+        """
+        Get lecture information from 'https://portal.student.kit.ac.jp/ead/?c=lecture_information'
+        :param kwards: option for `requests.Session.get`
+        :return: `Page` object
+        """
+        url = SupportedPages.LECTURE_INFORMATION.value
+        return Page(response=self._client.get(url, **kwards), parser=REGISTERED_PARSERS[url], access_at=datetime.now())
