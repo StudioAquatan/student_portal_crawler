@@ -6,25 +6,23 @@ from .utils import norm
 from .static import SupportedPages
 
 
-class LectureInformationParser(BaseParser):
-    """Parser for lecture information page"""
-    URL = SupportedPages.LECTURE_INFORMATION.value
+class LectureCancellationParser(BaseParser):
+    """Parser for lecture cancellation page"""
+    URL = SupportedPages.LECTURE_CANCELLATION.value
 
-    def parse(self) -> dict:
+    def parse(self):
         """
-        Parse lecture information and convert it to dict
+        Parse lecture cancellation and convert it to dict
         :return: { 'data': [
                 {
                     'grade': 学年,
-                    'semester': 学期,
                     'lecture': 科目名,
                     'instructor': 講師名,
+                    'cancel_date': 休講日,
                     'week': 曜日,
                     'period': 時限,
-                    'category': 分類,
                     'detail': 詳細,
                     'created_at': 初回掲載日,
-                    'updated_at': 最終更新日,
                     'links': [
                         {
                             'title': '詳細に含まれるリンクのタイトル',
@@ -43,18 +41,17 @@ class LectureInformationParser(BaseParser):
             norm_td_list = [norm(td.get_text()) for td in td_list]
             result = {
                 'grade': norm_td_list[1],
-                'semester': norm_td_list[2],
-                'lecture': norm_td_list[3],
-                'instructor': norm_td_list[4],
+                'lecture': norm_td_list[2],
+                'instructor': norm_td_list[3],
+                'cancel_date': datetime.strptime(norm_td_list[4], '%Y/%m/%d'),
                 'week': norm_td_list[5],
                 'period': norm_td_list[6],
-                'category': norm_td_list[7],
-                'detail': norm_td_list[8].strip().replace('\t', ''),
-                'created_at': datetime.strptime(norm_td_list[9], '%Y/%m/%d'),
-                'updated_at': datetime.strptime(norm_td_list[10], '%Y/%m/%d'),
+                'detail': norm_td_list[7].strip().replace('\t', ''),
+                'created_at': datetime.strptime(norm_td_list[8], '%Y/%m/%d'),
                 'links': [
-                    {'title': link.text.strip(), 'url': link.get('href')} for link in td_list[8].findAll('a')
+                    {'title': link.text.strip(), 'url': link.get('href')} for link in td_list[7].findAll('a')
                 ]
             }
             results['data'].append(result)
         return results
+

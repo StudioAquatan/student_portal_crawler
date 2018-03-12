@@ -58,13 +58,12 @@ class BaseParser(object, metaclass=AbstractParser):
         :return: dict
         """
         if 'data' not in self._data_cache.keys():
-            self._data_cache = self.parse(self._soup)
+            self._data_cache = self.parse()
         return self._data_cache
 
-    def parse(self, soup: 'BeautifulSoup') -> dict:
+    def parse(self) -> dict:
         """
         Parse HTML and convert it to dict.
-        :param soup: html loaded by BeautifulSoup4
         :return: data as dict
         """
         raise NotImplementedError('This method must be implemented.')
@@ -74,10 +73,9 @@ class GeneralParser(BaseParser):
     """General parser for not supported pages"""
     URL = '/'
 
-    def parse(self, soup: 'BeautifulSoup') -> dict:
+    def parse(self) -> dict:
         """
         Parser for not supported pages
-        :param soup: html loaded by BeautifulSoup4
         :return: { 'data': '' }
         """
         return {

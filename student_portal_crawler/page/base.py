@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING, Type
+from student_portal_crawler.error import ParseError
 
 if TYPE_CHECKING:
     from datetime import datetime
@@ -7,19 +8,7 @@ if TYPE_CHECKING:
     from student_portal_crawler.parser import BaseParser
 
 
-class AbstractPage(type):
-    """Abstract class for `Page`"""
-
-    def __new__(mcs, name, bases, class_dict: dict):
-        must_impl_vars = ['url', 'status_code', 'html', 'soup', 'access_at']
-        if bases != (object,):
-            for must_impl_var in must_impl_vars:
-                if must_impl_var not in class_dict.keys():
-                    raise AttributeError('{cls} has no attribute {var}'.format(cls=name, var=must_impl_var))
-        return type.__new__(mcs, name, bases, class_dict)
-
-
-class Page(object, metaclass=AbstractPage):
+class Page(object):
     """General page class for Portal website"""
 
     def __init__(self, response: 'Response', parser: Type['BaseParser'], access_at: 'datetime'):
@@ -73,6 +62,8 @@ class Page(object, metaclass=AbstractPage):
         page data which is converted into dictionary by parser
         :return: dict
         """
+        if self.status_code > 400:
+            raise ParseError('status_code is {}'.format(self.status_code))
         return self._parser.data
 
     def __repr__(self):

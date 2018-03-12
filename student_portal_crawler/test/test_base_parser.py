@@ -19,7 +19,7 @@ class TestBaseParser(TestCase):
     def test_not_impl(self):
         """Calling not implemented method test for `base.BaseParser`"""
         base = BaseParser('')
-        base.parse(base._soup)
+        base.parse()
 
     def test_not_register(self):
         """Check registration test for `base.BaseParser`"""
@@ -31,7 +31,7 @@ class TestBaseParser(TestCase):
         class TestParser(BaseParser):
             URL = 'https://www.example.com'
 
-            def parse(self, soup: 'BeautifulSoup'):
+            def parse(self):
                 return dict({'data': 'value'})
         test_parser = TestParser('')
         eq_(REGISTERED_PARSERS[test_parser.URL], TestParser)
@@ -48,14 +48,14 @@ class TestBaseParser(TestCase):
         class UrlInvalidParser(BaseParser):
             URL = ''
 
-            def parse(self, soup: 'BeautifulSoup'):
+            def parse(self):
                 return dict()
 
     @raises(AttributeError)
     def test_invalid_inheritance_midding_url(self):
         """Invalid inheritance (missing url param) test for `base.BaseParser`"""
         class UrlInvalidParser(BaseParser):
-            def parse(self, soup: 'BeautifulSoup'):
+            def parse(self):
                 return dict()
 
     @raises(AttributeError)
@@ -84,7 +84,7 @@ class TestGeneralParser(TestCase):
     def test_implemented_parse(self):
         """Check implementation of `parse` method test for `base.GeneralParser`"""
         general_parser = GeneralParser('')
-        eq_({'data': ''}, general_parser.parse(general_parser._soup))
+        eq_({'data': ''}, general_parser.parse())
         ok_(hasattr(general_parser, 'data'))
         ok_(type(general_parser.data), dict)
         ok_(hasattr(general_parser, '_soup'))
