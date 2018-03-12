@@ -56,6 +56,15 @@ class PortalBrowser(object):
         url = SupportedPages.LECTURE_CANCELLATION.value
         return self._get_page(url, REGISTERED_PARSERS[url], **kwards)
 
+    def get_news(self, **kwards) -> Page:
+        """
+        Get news from 'https://portal.student.kit.ac.jp/'
+        :param kwards: option for `requests.Session.get`
+        :return: `Page` object
+        """
+        url = SupportedPages.NEWS.value
+        return self._get_page(url, REGISTERED_PARSERS[url], **kwards)
+
     def _get_page(self, url: str, parser: Type[BaseParser], **kwards) -> Page:
         """
         Get response from web, and return instance of `Page`
