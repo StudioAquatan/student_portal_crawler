@@ -19,7 +19,10 @@ class NewsParserTest(unittest.TestCase):
             'detail': 'PDFのお知らせ\nお知らせ一行目\nお知らせ二行目',
             'title': 'PDFのお知らせ',
             'links': [
-                'https://example.com/example.pdf'
+                {
+                    'title': 'PDFのお知らせ',
+                    'url': 'https://example.com/example.pdf'
+                }
             ]
         },
         {
@@ -29,7 +32,10 @@ class NewsParserTest(unittest.TestCase):
             'detail': '普通のリンクのお知らせ\nお知らせ一行目\nお知らせ二行目',
             'title': '普通のリンクのお知らせ',
             'links': [
-                'https://example.com/'
+                {
+                    'title': '普通のリンクのお知らせ',
+                    'url': 'https://example.com/'
+                }
             ]
         },
         {

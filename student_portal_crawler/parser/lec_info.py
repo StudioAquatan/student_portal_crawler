@@ -26,7 +26,10 @@ class LectureInformationParser(BaseParser):
                     'created_at': 初回掲載日,
                     'updated_at': 最終更新日,
                     'links': [
-                        詳細に含まれるリンク
+                        {
+                            'title': '詳細に含まれるリンクのタイトル',
+                            'url': '詳細に含まれるリンクのURL'
+                        }
                     ]
                 }
             ]
@@ -49,7 +52,9 @@ class LectureInformationParser(BaseParser):
                 'detail': norm_td_list[8].strip().replace('\t', ''),
                 'created_at': datetime.strptime(norm_td_list[9], '%Y/%m/%d'),
                 'updated_at': datetime.strptime(norm_td_list[10], '%Y/%m/%d'),
-                'links': [link.get('href') for link in td_list[8].findAll('a')]
+                'links': [
+                    {'title': link.text.strip(), 'url': link.get('href')} for link in td_list[8].findAll('a')
+                ]
             }
             results['data'].append(result)
         return results

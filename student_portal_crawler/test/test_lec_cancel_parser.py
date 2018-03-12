@@ -35,7 +35,10 @@ class LectureCancellationParserTest(unittest.TestCase):
             'detail': '私もチョコレートが欲しいためsample link',
             'created_at': SAMPLE_DATE,
             'links': [
-                'https://example.com/'
+                {
+                    'title': 'sample link',
+                    'url': 'https://example.com/'
+                }
             ]
         },
     ]

@@ -21,7 +21,10 @@ class NewsParser(BaseParser):
                     'detail': 詳細,
                     'title': タイトル,
                     'links': [
-                        詳細に含まれるリンク
+                        {
+                            'title': '詳細に含まれるリンクのタイトル',
+                            'url': '詳細に含まれるリンクのURL'
+                        }
                     ]
                 }
             ]
@@ -53,7 +56,9 @@ class NewsParser(BaseParser):
                 'category': norm(all_dd[2].text.strip()),
                 'detail': '\n'.join(sentence_list),
                 'title': sentence_list[0],
-                'links': [link.get('href') for link in all_dd[3].findAll('a')]
+                'links': [
+                    {'title': link.text.strip(), 'url': link.get('href')} for link in all_dd[3].findAll('a')
+                ]
             }
             results['data'].append(result)
         return results

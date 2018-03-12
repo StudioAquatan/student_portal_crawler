@@ -25,7 +25,10 @@ class LectureInformationParserTest(unittest.TestCase):
             'created_at': SAMPLE_DATE,
             'updated_at': SAMPLE_DATE,
             'links': [
-                'https://example.com/'
+                {
+                    'title': 'sample link',
+                    'url': 'https://example.com/'
+                }
             ]
         },
         {
@@ -40,7 +43,10 @@ class LectureInformationParserTest(unittest.TestCase):
             'created_at': SAMPLE_DATE,
             'updated_at': SAMPLE_DATE,
             'links': [
-                'https://example.com/'
+                {
+                    'title': 'sample link',
+                    'url': 'https://example.com/'
+                }
             ]
         },
         {

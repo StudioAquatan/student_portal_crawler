@@ -24,7 +24,10 @@ class LectureCancellationParser(BaseParser):
                     'detail': 詳細,
                     'created_at': 初回掲載日,
                     'links': [
-                        詳細に含まれるリンク
+                        {
+                            'title': '詳細に含まれるリンクのタイトル',
+                            'url': '詳細に含まれるリンクのURL'
+                        }
                     ]
                 }
             ]
@@ -45,7 +48,9 @@ class LectureCancellationParser(BaseParser):
                 'period': norm_td_list[6],
                 'detail': norm_td_list[7].strip().replace('\t', ''),
                 'created_at': datetime.strptime(norm_td_list[8], '%Y/%m/%d'),
-                'links': [link.get('href') for link in td_list[7].findAll('a')]
+                'links': [
+                    {'title': link.text.strip(), 'url': link.get('href')} for link in td_list[7].findAll('a')
+                ]
             }
             results['data'].append(result)
         return results
