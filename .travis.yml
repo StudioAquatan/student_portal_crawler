@@ -1,0 +1,34 @@
+language: python
+
+cache: pip
+
+python:
+  - '3.5'
+  - '3.5-dev'
+  - '3.6'
+  - '3.6-dev'
+
+install:
+  - pip install -r requirements.txt
+  - pip install codecov coverage
+
+script:
+  - python setup.py nosetests
+
+after_success:
+  - codecov
+
+deploy:
+  provider: pypi
+  user: studioaquatan
+  distributions: 'sdist bdist_wheel'
+  on:
+    tags: true
+    python: '3.6'
+  password:
+    secure: SzjE2SmsBxFzki9mO8UozqPpgGI2ntUpNVx41ri0zA0hmFyayAKGre+l7C6sQ5azeXYZO8cUX7FnoD56PE5E/hIKHYNwqYvVf/VeUPpxhvu9pQ+2kkBwlBjFd0SqpLwEMmdoFMbCHT5nflEYjZZ+Z9OOf1IckQ9rWhzHCuCuBOuI7DxYXziz9mHIfKZUl5tg/HxSfNSlIP7dp9vMij/eGHxvsZ2+POd5LcYUUHnSAA5dHyTYMg4diy0v7uC5NRcqLB7lFw7S5VJ/uUx2H29y1yhYNU4yVUT5f85vbESp0vMwMs3x47A4pHdOHjtIG0VcIS9WsCO3vUQbgZSB666mJUPzPBhpkU85UqvD8ldwokyl9NXGL0JMGAnQz5M+nyQNnNFG53CupjxyH407kVc7Avo+QvM12NppRvPStKHgjXrMZqyBQpmdpF4J5oAQEGZumroVZxDudCNt0d+3j5l3sBkOHsvtcQWuRkYUcTnsQAvkgjXoM2URE4wH3F96KA3sDKwc1o13W0doC/MDGKNnOeaGjaLV9aFdBdw0izj/827alkFD04MjuSYl533GdyEAHCSwr0cqj2XbVsTdl/j5L1/zykJN5g3mmgqmHSVmIjK7fF6/+7E3VnjuxIERWNA1gBa7vlqU4dOxXp3POTzp61wOmH453e3Vf+sdbeQPWBA=
+
+notifications:
+  email: false
+  slack:
+    secure: npdNlesznnxrC7KsuB7sjIkngub2qK/octEycHXGlPUjFCW5gCxMSXSqo8I68DRIEBzQ6a9Dje/6ueRfmGFMsphKQEzdeNjN1XdCfq6A1kz6f6tABj0v8oXyq7jgUwfpwOVhDMDo7L1kvUKvMiMcFUi7qXzxs1Tboku2OsG++JiPVjLDxF9x/xWmtVqarTZxFxa7Z1DBsXh7pZ3eYia7+jIWdcp22DTOf4LvxsyfDl7h30G8JZlC7jkymp0ZJXtECz4eTUa4eQ73O5GaiOv5KfzH7bB9gY72vmD+HxPMOjnKgxS7hBol6hBbwTlIYHtedB2INevuVZoQvPLEy+kZdfcZv+liJhd/ofLMfey9QZ877vVzZgi2DGW2ul6WWeddKvo56vqOlLsk8SxyxeLT/eBGDqL71VomdblfCLOrFMhHI9hbxvr2DXyUfM0hoUxsP1JwloK7hCLVnvqK6uhaVrRkyb+qB10Qz2Iwsw/6WRmgZWbtYd/QyxtfB01+vvS2a8E2uTDHV3eENPbMSLKFHhH5gkij0zkXwfgC91iVkNFfkvUOZ6cyKTxHwZPDVSeJbMpov76t08fJWa5xmTSI4Nl26eYEdz9W5caxXuo8SfacCCg64/HAKNfAgAiMqCOpWRp/kuhWP5iEas5FRv3VunN2xrCoWhnbxRmP6YKmZxQ=
